@@ -1,0 +1,22 @@
+# Custom Scalars
+scalar Date
+scalar Upload
+
+type Query {
+  getCategories(ID: String, search_string: String): [Categories]
+
+  getSeller(ID: String, search_string: String): [Seller]
+
+}
+
+type Mutation {
+  initDatabases: RESPONSE
+
+  addNewCategories(categories: [CateInsertInput]!): RESPONSE
+  updateCategories(category: CateUpdateInput): RESPONSE
+
+  addNewSeller(sellers: [SellerInsertInput]!): RESPONSE
+  updateSeller(seller: SellerUpdateInput): RESPONSE
+
+
+}

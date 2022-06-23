@@ -1,0 +1,23 @@
+type Seller implements Timestamps{
+    ID: String
+    SELLER_NAME: String
+    RATING: String
+    FOLLOWER: Float
+    CREATE_AT: Float
+    UPDATE_AT: Float,
+    STATE: Boolean
+}
+
+input SellerInsertInput {
+    SELLER_NAME: String!
+}
+
+input SellerUpdateInput {
+    ID: String
+    SELLER_NAME: String
+    RATING: String
+    FOLLOWER: Float
+    CREATE_AT: Float
+    UPDATE_AT: Float,
+    STATE: Boolean
+}

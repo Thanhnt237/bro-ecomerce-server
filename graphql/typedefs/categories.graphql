@@ -1,0 +1,17 @@
+type Categories implements Timestamps{
+    ID: String
+    CATEGORIES_NAME: String
+    CREATE_AT: Float
+    UPDATE_AT: Float
+    STATE: Boolean
+}
+
+input CateInsertInput {
+    CATEGORIES_NAME: String
+}
+
+input CateUpdateInput {
+    ID: String!
+    CATEGORIES_NAME: String
+    STATE: Boolean
+}

@@ -1,0 +1,24 @@
+# Interface
+interface Timestamps {
+  CREATE_AT: Float
+  UPDATE_AT: Float
+}
+
+type RESPONSE {
+  status: String
+  message: String
+  error: String
+}
+
+type Error {
+  path: String!
+  message: String
+}
+
+type REFRESH_TOKEN_RESPONSE {
+  token: String!
+}
+
+input FirebaseMessage {
+  message_type: String
+}
