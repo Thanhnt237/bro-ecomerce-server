@@ -1,11 +1,6 @@
 const common = require("../../../common/commonFunction");
 const { TABLE_NAME } = require("../../../config/tablename");
-const constants = require("../../../common/constants.js");
-const logger = require("../../../utils/logger")
 const _ = require('lodash');
-const {UserInputError} = require('apollo-server');
-const script_db = require("../../../config/script_db");
-const connection = require("../../../config/database_connection");
 
 const Mutation = {
     addNewCategories: async (parent, args, ctx, info)=>{
@@ -14,7 +9,7 @@ const Mutation = {
         data = data.map(c => {
             return {
                 ID: common.genID("C",45),
-                CATEGORIES_NAME: c.CATEGORIES_NAME,
+                ...c,
                 CREATE_AT: (new Date()).getTime(),
                 UPDATE_AT: (new Date()).getTime()
             }
@@ -31,13 +26,11 @@ const Mutation = {
         }
     },
     updateCategories: async (parent, args, ctx, info) => {
-        let standardData = {
-            CATEGORIES_NAME: "",
-            STATE: ""
+        let data = JSON.parse(JSON.stringify(args.category))
+        let condition = {
+            ID: data.ID
         }
-        let data = _.pick(args.category, Object.keys(standardData))
-        data.UPDATE_AT = (new Date()).getTime();
-        let condition = _.pick(args.category, ["ID"])
+        data.UPDATE_AT = (new Date()).getTime()
         let sql = common.genUpdateQuery(TABLE_NAME.CATEGORIES, data, condition)
         try {
             await common.query(sql)

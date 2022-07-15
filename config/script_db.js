@@ -2,14 +2,11 @@ const TABLE_NAME = require("./tablename").TABLE_NAME
 
 require('dotenv').config();
 module.exports = `
-DROP DATABASE IF EXISTS ${process.env.DATABASE_NAME};
-CREATE DATABASE IF NOT EXISTS ${process.env.DATABASE_NAME} character set UTF8 collate utf8_bin;
-
-use ${process.env.DATABASE_NAME};
-
 CREATE TABLE IF NOT EXISTS ${TABLE_NAME.CATEGORIES}(
     ID varchar(50) not null,
     CATEGORIES_NAME text charset utf8mb4,
+    SLUG text charset utf8mb4,
+    DESCRIPTION text charset utf8mb4,
     CREATE_AT bigint,
     UPDATE_AT bigint,
     STATE boolean default true,
@@ -46,6 +43,7 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.VOUCHER}(
     VOUCHER_CODE varchar(30),
     DISCOUNT_PRICE text charset utf8mb4,
     CREATE_AT bigint,
+    UPDATE_AT bigint,
     VALID_UNTIL bigint,
     STATE boolean default true,
     primary key (ID)
@@ -56,7 +54,6 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.REF_VOUCHER_PRODUCT}(
     VOUCHER_ID varchar(50),
     PRODUCT_ID varchar(50),
     CREATE_AT bigint,
-    VALID_UNTIL bigint,
     STATE boolean default true,
     primary key (ID),
     CONSTRAINT FK_REF_TO_VOUCHER FOREIGN KEY (VOUCHER_ID) REFERENCES ${TABLE_NAME.VOUCHER} (ID),

@@ -1,0 +1,25 @@
+input VoucherInsertInput {
+    VOUCHER_NAME: String
+    VOUCHER_CODE: String
+    DISCOUNT_PRICE: String
+    VALID_UNTIL: Float
+}
+
+type Voucher implements Timestamps {
+    ID: String
+    VOUCHER_NAME: String
+    VOUCHER_CODE: String
+    DISCOUNT_PRICE: Float
+    CREATE_AT: Float
+    UPDATE_AT: Float
+    VALID_UNTIL: Float
+    STATE: Boolean
+}
+
+input VoucherUpdateInput {
+    ID: String
+    VOUCHER_NAME: String
+    VOUCHER_CODE: String
+    DISCOUNT_PRICE: String
+    STATE: Boolean
+}

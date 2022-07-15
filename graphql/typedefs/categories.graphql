@@ -1,6 +1,8 @@
 type Categories implements Timestamps{
     ID: String
     CATEGORIES_NAME: String
+    SLUG: String
+    DESCRIPTION: String
     CREATE_AT: Float
     UPDATE_AT: Float
     STATE: Boolean
@@ -8,10 +10,14 @@ type Categories implements Timestamps{
 
 input CateInsertInput {
     CATEGORIES_NAME: String
+    SLUG: String
+    DESCRIPTION: String
 }
 
 input CateUpdateInput {
     ID: String!
     CATEGORIES_NAME: String
+    SLUG: String
+    DESCRIPTION: String
     STATE: Boolean
 }

@@ -68,7 +68,8 @@
 		 *
 		 * @param {*} tableName
 		 * @param {*} arrProps : //các cột
-		 * @param {*} data : phải là mảng
+		 * @param {Array<Object>} data phải là mảng
+		 * @param is_IGNORE
 		 */
 		genInsertQuery: function (tableName, arrProps, data, is_IGNORE=false) {
 			let data_insert = [];

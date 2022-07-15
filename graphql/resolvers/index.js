@@ -3,6 +3,8 @@ const loginResolvers = require('./login')
 const categoriesResolvers = require('./categories')
 const productResolvers = require('./product')
 const sellerResolvers = require('./Seller')
+const voucherResolvers = require('./voucher')
+const paypalResolvers = require('./paypal')
 
 const resolvers = {
   Query: {
@@ -11,7 +13,8 @@ const resolvers = {
     ...categoriesResolvers.queries,
     ...productResolvers.queries,
     ...sellerResolvers.queries,
-
+    ...voucherResolvers.queries,
+    ...paypalResolvers.queries,
   },
   Mutation: {
     ...databasesResolvers.mutation,
@@ -19,7 +22,8 @@ const resolvers = {
     ...categoriesResolvers.mutation,
     ...productResolvers.mutation,
     ...sellerResolvers.mutation,
-
+    ...voucherResolvers.mutation,
+    ...paypalResolvers.mutation,
   }
 };
 

@@ -23,7 +23,6 @@ const start = async () => {
     });
     app.listen(process.env.SERVER_PORT, ()=>{
       logger.info("Express server listening on port " + process.env.SERVER_PORT);
-      logger.info(JSON.stringify(process.env.MYSQL_USER))
     });
   } catch(error) {
     console.log(error);

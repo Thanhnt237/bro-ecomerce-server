@@ -2,12 +2,28 @@ const { ApolloServer, AuthenticationError, UserInputError } = require('apollo-se
 const constants = require("../common/constants");
 const schema = require('./schema');
 let { verifyToken } = require('./middleware/auth')
+const { print } = require('graphql');
+
+const myPlugin = {
+  // Fires whenever a GraphQL request is received from a client.
+  async requestDidStart(requestContext) {
+    console.log('Query:\n' + requestContext.request.query + '\n=============');
+  },
+};
 
 const apolloServer = new ApolloServer({
   introspection: true,
   schema,
   playground: process.env.ENVIRONMENT,
+
+  //### logging plugin ###
+  // plugins: [
+  //   myPlugin
+  // ]
+
   // csrfPrevention: true,
+
+  //### auth context ###
   // context: async ({ req }) => {
     //
     // let isPublicAPI = false;

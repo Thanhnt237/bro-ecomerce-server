@@ -7,6 +7,9 @@ type Query {
 
   getSeller(ID: String, search_string: String): [Seller]
 
+  getProducts(ID: String, search_string: String): [Product]
+
+  getVouchers(ID: String, search_string: String): [Voucher]
 }
 
 type Mutation {
@@ -16,7 +19,13 @@ type Mutation {
   updateCategories(category: CateUpdateInput): RESPONSE
 
   addNewSeller(sellers: [SellerInsertInput]!): RESPONSE
-  updateSeller(seller: SellerUpdateInput): RESPONSE
+  updateSeller(seller: SellerUpdateInput!): RESPONSE
 
+  addNewProduct(products: [ProductInsertInput!]): RESPONSE
+  updateProduct(product: ProductUpdateInput!): RESPONSE
 
+  addNewVouchers(vouchers: [VoucherInsertInput]!): RESPONSE
+  updateVoucher(voucher: VoucherUpdateInput!): RESPONSE
+
+  addVoucherRef(vouchers: [IDOnly]!, products: [IDOnly]!): RESPONSE
 }

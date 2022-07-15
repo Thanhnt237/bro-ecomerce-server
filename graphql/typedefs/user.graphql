@@ -1,0 +1,34 @@
+type User implements Timestamps{
+    ID: String
+    CREATE_AT: Float
+    UPDATE_AT: Float
+    STATE: Boolean
+    FIRST_NAME: String
+    LAST_NAME: String
+    DATE_OF_BIRTH: String
+    GENDER: String
+    NATIONALITY: String
+    ADDRESS: String
+    PHONE_NUMBER: String
+}
+
+input UserInsertInput {
+    FIRST_NAME: String
+    LAST_NAME: String
+    DATE_OF_BIRTH: String
+    GENDER: String
+    NATIONALITY: String
+    ADDRESS: String
+    PHONE_NUMBER: String
+}
+
+input UserUpdateInput{
+    ID: String
+    FIRST_NAME: String
+    LAST_NAME: String
+    DATE_OF_BIRTH: String
+    GENDER: String
+    NATIONALITY: String
+    ADDRESS: String
+    PHONE_NUMBER: String
+}

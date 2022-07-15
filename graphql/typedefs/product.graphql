@@ -1,0 +1,26 @@
+type Product implements Timestamps{
+    ID: String,
+    PRODUCT_NAME: String,
+    SELLER_ID: String,
+    PRICE: Float,
+    PRODUCT_DESCRIPTION : String
+    CREATE_AT: Float,
+    UPDATE_AT: Float,
+    STATE: Boolean
+}
+
+input ProductUpdateInput {
+    ID: String!,
+    PRODUCT_NAME: String,
+    SELLER_ID: String,
+    PRICE: Float,
+    PRODUCT_DESCRIPTION : String
+    STATE: Boolean
+}
+
+input ProductInsertInput {
+    PRODUCT_NAME: String,
+    SELLER_ID: String,
+    PRICE: Float,
+    PRODUCT_DESCRIPTION : String
+}

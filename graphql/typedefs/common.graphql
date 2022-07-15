@@ -22,3 +22,7 @@ type REFRESH_TOKEN_RESPONSE {
 input FirebaseMessage {
   message_type: String
 }
+
+input IDOnly {
+  ID: String
+}
