@@ -1,26 +1,22 @@
 const common = require("../../../common/commonFunction");
 const { TABLE_NAME } = require("../../../config/tablename");
-const _ = require('lodash');
-const {createTokens, refreshTokens, checkValidityDevice} = require('../../middleware/auth')
-const bcrypt = require("bcrypt");
-const constants = require("../../../common/constants");
-const logger = require("../../../utils/logger");
+const logger = require("../../../utils/logger")
+const {createTokens} = require("../../middleware/auth");
 
 const Mutation = {
-    addNewSeller: async (parent, args, ctx, info)=>{
-        console.log(args)
-        let data = JSON.parse(JSON.stringify(args.sellers))
+    addNewUser: async (parent, args)=>{
+        let data = JSON.parse(JSON.stringify(args.users))
 
         data = data.map(c => {
             return {
-                ID: common.genID("S",45),
+                ID: common.genID("U",45),
                 ...c,
                 CREATE_AT: (new Date()).getTime(),
                 UPDATE_AT: (new Date()).getTime()
             }
         })
 
-        let sql = common.genInsertQuery(TABLE_NAME.SELLER, Object.keys(data[0]), data)
+        let sql = common.genInsertQuery(TABLE_NAME.USER, Object.keys(data[0]), data)
 
         try {
             await common.query(sql)
@@ -31,16 +27,11 @@ const Mutation = {
             return {status: "KO", ...error}
         }
     },
-    updateSeller: async (parent, args, ctx, info) => {
-        let standardData = {
-            SELLER_NAME: "",
-            RATING: "",
-            FOLLOWER: "",
-            STATE: ""
+    updateUser: async (parent, args, ctx, info) => {
+        let data = JSON.parse(JSON.stringify(args.user))
+        let condition = {
+            ID: data.ID
         }
-        let data = _.pick(args.seller, Object.keys(standardData))
-        data.UPDATE_AT = (new Date()).getTime();
-        let condition = _.pick(args.seller, ["ID"])
         let sql = common.genUpdateQuery(TABLE_NAME.SELLER, data, condition)
         try {
             await common.query(sql)
@@ -50,10 +41,11 @@ const Mutation = {
             return {status: "KO", ...error}
         }
     },
-    sellerLogin: async (parent, args) => {
+    userLogin: async (parent, args) => {
+        console.log(args)
         let sql = `
           select * 
-          from ${TABLE_NAME.SELLER}
+          from ${TABLE_NAME.USER}
           where PHONE_NUMBER = '${args.username}' OR EMAIL = '${args.username}'
         `
 
@@ -71,13 +63,13 @@ const Mutation = {
             return {status: "OK",
                 token: token,
                 refreshToken: refreshToken,
-                seller: result[0]
+                user: result[0]
             }
         }catch (error) {
             logger.error(`${arguments.callee.name} error : ${error.message}`)
             return {status: "KO", ...error}
         }
-    },
+    }
 };
 
 module.exports = Mutation;

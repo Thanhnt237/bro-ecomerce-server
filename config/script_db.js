@@ -16,11 +16,18 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.CATEGORIES}(
 CREATE TABLE IF NOT EXISTS ${TABLE_NAME.SELLER}(
     ID varchar(50) not null,
     SELLER_NAME text charset utf8mb4,
+    PHONE_NUMBER text charset utf8mb4 not null,
+    MAIN_CATEGORIES text charset utf8mb4,
+    EMAIL varchar(50) not null,
+    PASSWORD varchar(220) not null,
+    ROLE varchar(20) default 'SELLER',
     RATING text charset utf8mb4,
     FOLLOWER bigint,
     CREATE_AT bigint,
     UPDATE_AT bigint,
     STATE boolean default true,
+    UNIQUE (PHONE_NUMBER),
+    UNIQUE (EMAIL),
     primary key (ID)
 );
 
@@ -28,10 +35,14 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.PRODUCT} (
     ID varchar(50) not null,
     PRODUCT_NAME text charset utf8mb4,
     SELLER_ID varchar(50) not null,
+    CATEGORY_ID varchar(50),
+    DETAILS text charset utf8mb4,
+    DESCRIPTION text charset utf8mb4,
     PRICE bigint default 0,
     PRODUCT_DESCRIPTION text charset utf8mb4,
     CREATE_AT bigint,
     UPDATE_AT bigint,
+    PRODUCT_LOCK boolean default false,
     STATE boolean default true,
     primary key (ID),
     CONSTRAINT FK_PRODUCT_TO_SELLER FOREIGN KEY (SELLER_ID) REFERENCES ${TABLE_NAME.SELLER} (ID)
@@ -60,21 +71,11 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.REF_VOUCHER_PRODUCT}(
     CONSTRAINT FK_REF_TO_PRODUCT FOREIGN KEY (PRODUCT_ID) REFERENCES ${TABLE_NAME.PRODUCT} (ID)
 );
 
-CREATE TABLE IF NOT EXISTS ${TABLE_NAME.ACCOUNT} (
+CREATE TABLE IF NOT EXISTS ${TABLE_NAME.USER} (
     ID varchar(50) not null,
-    USERNAME varchar(50) not null,
     EMAIL varchar(50) not null,
     PASSWORD varchar(220) not null,
-    ROLE varchar(20) default 'MEMBER',
-    USER_ID varchar(50) not null,
-    CREATE_AT bigint,
-    UPDATE_AT bigint,
-    STATE boolean default true,
-    primary key (ID)
-);
-
-CREATE TABLE IF NOT EXISTS ${TABLE_NAME.USER_INFORMATION} (
-    ID varchar(50) not null,
+    ROLE varchar(20) default 'USER',
     FIRST_NAME text charset utf8mb4,
     LAST_NAME text charset utf8mb4,
     DATE_OF_BIRTH text charset utf8mb4,
@@ -85,8 +86,7 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.USER_INFORMATION} (
     CREATE_AT bigint,
     UPDATE_AT bigint,
     STATE boolean default true,
-    primary key (ID),
-    CONSTRAINT FK_USER_TO_ACCOUNT FOREIGN KEY (ID) REFERENCES ${TABLE_NAME.ACCOUNT} (ID)
+    primary key (ID)
 );
 
 

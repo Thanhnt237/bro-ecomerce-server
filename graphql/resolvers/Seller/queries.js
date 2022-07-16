@@ -15,13 +15,13 @@ const Query = {
         }
 
         if(search_string){
-            expandCondition += ` and lower(SELLER_NAME) like '%${search_string.trim().toLowerCase()}%'`
+            // expandCondition += ` and lower(SELLER_NAME) like '%${search_string.trim().toLowerCase()}%'`
         }
 
         let sql = `
             select *
             from ${TABLE_NAME.SELLER}
-            where STATE;
+            where STATE ${expandCondition};
         `
         try {
             let [result] = await common.query(sql)

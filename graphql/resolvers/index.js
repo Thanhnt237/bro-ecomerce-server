@@ -1,10 +1,11 @@
 const databasesResolvers = require('./databases');
-const loginResolvers = require('./login')
+const loginResolvers = require('./user')
 const categoriesResolvers = require('./categories')
 const productResolvers = require('./product')
 const sellerResolvers = require('./Seller')
 const voucherResolvers = require('./voucher')
 const paypalResolvers = require('./paypal')
+const uploadResolvers = require('./upload')
 
 const resolvers = {
   Query: {
@@ -15,6 +16,7 @@ const resolvers = {
     ...sellerResolvers.queries,
     ...voucherResolvers.queries,
     ...paypalResolvers.queries,
+    ...uploadResolvers.queries,
   },
   Mutation: {
     ...databasesResolvers.mutation,
@@ -24,6 +26,7 @@ const resolvers = {
     ...sellerResolvers.mutation,
     ...voucherResolvers.mutation,
     ...paypalResolvers.mutation,
+    ...uploadResolvers.mutation,
   }
 };
 

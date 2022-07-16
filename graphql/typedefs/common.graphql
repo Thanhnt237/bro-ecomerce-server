@@ -15,8 +15,35 @@ type Error {
   message: String
 }
 
+type TokenResponse {
+  status: String
+  message: String
+  error: String
+  token: String
+  refreshToken: String
+}
+
+type SELLER_LOGIN {
+  status: String
+  message: String
+  error: String
+  token: String
+  refreshToken: String
+  seller: Seller
+}
+
+type USER_LOGIN {
+  status: String
+  message: String
+  error: String
+  token: String
+  refreshToken: String
+  user: User
+}
+
 type REFRESH_TOKEN_RESPONSE {
   token: String!
+  refreshToken: String
 }
 
 input FirebaseMessage {

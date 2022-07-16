@@ -3,9 +3,10 @@ const { TABLE_NAME } = require("../../../config/tablename");
 const constants = require("../../../common/constants.js");
 const logger = require("../../../utils/logger")
 const _ = require('lodash');
+const {UserInputError} = require('apollo-server');
 
-const Queries = {
+const Query = {
 
 };
 
-module.exports = Queries;
+module.exports = Query;

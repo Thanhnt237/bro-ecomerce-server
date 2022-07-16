@@ -8,12 +8,12 @@ const common = require("../../common/commonFunction");
 const logger = require("../../utils/logger");
 
 module.exports = {
-    createTokens: async (user, secret, secret2) => {
+    createTokens: async (user) => {
         const createToken = jwt.sign(
             {
-                user: _.pick(user, ['ID', 'ROLE']),
+                user: _.pick(user, ['ID']),
             },
-            secret,
+            process.env.SECRET_TOKEN,
             {
                 expiresIn: constants.TOKEN_EXPIRES_TIME,
             },
@@ -23,7 +23,7 @@ module.exports = {
             {
                 user: _.pick(user, 'ID'),
             },
-            secret2,
+            process.env.SECRET_TOKEN,
             {
                 expiresIn: constants.REFRESH_TOKEN_EXPIRES_TIME,
             },

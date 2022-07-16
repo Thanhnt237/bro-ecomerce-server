@@ -3,10 +3,9 @@ const { TABLE_NAME } = require("../../../config/tablename");
 const constants = require("../../../common/constants.js");
 const logger = require("../../../utils/logger")
 const _ = require('lodash');
-const {UserInputError} = require('apollo-server');
 
-const Query = {
-    getVouchers: async (parent, args, ctx, info)=>{
+const Queries = {
+    getUsers: async (parent, args, ctx, info)=>{
         let {ID, search_string} = args
         let expandCondition = ""
 
@@ -15,12 +14,12 @@ const Query = {
         }
 
         if(search_string){
-            expandCondition += ` and lower(VOUCHER_NAME) like '%${search_string.trim().toLowerCase()}%'`
+            expandCondition += ` and lower(concat(FIRST_NAME, ' ', LAST_NAME)) like '%${search_string.trim().toLowerCase()}%'`
         }
 
         let sql = `
             select *
-            from ${TABLE_NAME.VOUCHER}
+            from ${TABLE_NAME.USER}
             where STATE ${expandCondition};
         `
         try {
@@ -33,4 +32,4 @@ const Query = {
     }
 };
 
-module.exports = Query;
+module.exports = Queries;

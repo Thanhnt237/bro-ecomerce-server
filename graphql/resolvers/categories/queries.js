@@ -21,7 +21,7 @@ const Query = {
         let sql = `
             select *
             from ${TABLE_NAME.CATEGORIES}
-            where STATE;
+            where STATE ${expandCondition};
         `
         try {
             let [result] = await common.query(sql)

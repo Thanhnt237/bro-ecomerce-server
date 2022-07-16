@@ -7,9 +7,11 @@ type Query {
 
   getSeller(ID: String, search_string: String): [Seller]
 
-  getProducts(ID: String, search_string: String): [Product]
+  getProducts(ID: String, search_string: String, categoriesID: String, sellerID: String): [Product]
 
   getVouchers(ID: String, search_string: String): [Voucher]
+
+  getUsers(ID: String, search_string: String): [User]
 }
 
 type Mutation {
@@ -18,7 +20,7 @@ type Mutation {
   addNewCategories(categories: [CateInsertInput]!): RESPONSE
   updateCategories(category: CateUpdateInput): RESPONSE
 
-  addNewSeller(sellers: [SellerInsertInput]!): RESPONSE
+  addNewSeller(sellers: [SellerInsertInput]!): TokenResponse
   updateSeller(seller: SellerUpdateInput!): RESPONSE
 
   addNewProduct(products: [ProductInsertInput!]): RESPONSE
@@ -28,4 +30,10 @@ type Mutation {
   updateVoucher(voucher: VoucherUpdateInput!): RESPONSE
 
   addVoucherRef(vouchers: [IDOnly]!, products: [IDOnly]!): RESPONSE
+
+  addNewUser(users: [UserInsertInput]!): RESPONSE
+  updateUser(user: UserUpdateInput!): RESPONSE
+
+  sellerLogin(username: String!, password: String!): SELLER_LOGIN
+  userLogin(username: String!, password: String!): USER_LOGIN
 }

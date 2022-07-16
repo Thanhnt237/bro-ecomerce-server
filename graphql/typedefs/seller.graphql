@@ -1,5 +1,8 @@
 type Seller implements Timestamps{
     ID: String
+    EMAIL: String
+    PHONE_NUMBER: String
+    MAIN_CATEGORIES: String
     SELLER_NAME: String
     RATING: String
     FOLLOWER: Float
@@ -10,6 +13,10 @@ type Seller implements Timestamps{
 
 input SellerInsertInput {
     SELLER_NAME: String!
+    EMAIL: String!
+    PHONE_NUMBER: String!
+    MAIN_CATEGORIES: String!
+    PASSWORD: String
 }
 
 input SellerUpdateInput {

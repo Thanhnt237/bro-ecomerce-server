@@ -1,26 +1,37 @@
 type Product implements Timestamps{
-    ID: String,
-    PRODUCT_NAME: String,
-    SELLER_ID: String,
-    PRICE: Float,
-    PRODUCT_DESCRIPTION : String
-    CREATE_AT: Float,
-    UPDATE_AT: Float,
+    ID: String
+    PRODUCT_NAME: String
+    SELLER: Seller
+    CATEGORIES: Categories
+    DETAILS: String
+    DESCRIPTION: String
+    VOUCHER: [Voucher]
+    PRICE: Float
+    CREATE_AT: Float
+    UPDATE_AT: Float
+    PRODUCT_LOCK: Boolean
     STATE: Boolean
 }
 
 input ProductUpdateInput {
-    ID: String!,
-    PRODUCT_NAME: String,
-    SELLER_ID: String,
-    PRICE: Float,
+    ID: String!
+    PRODUCT_NAME: String
+    SELLER_ID: String
+    CATEGORY_ID: String
+    DETAILS: String
+    DESCRIPTION: String
+    PRICE: Float
     PRODUCT_DESCRIPTION : String
+    PRODUCT_LOCK: Boolean
     STATE: Boolean
 }
 
 input ProductInsertInput {
-    PRODUCT_NAME: String,
-    SELLER_ID: String,
-    PRICE: Float,
-    PRODUCT_DESCRIPTION : String
+    PRODUCT_NAME: String
+    SELLER_ID: String
+    PRICE: Float
+    DESCRIPTION : String
+    CATEGORY_ID: String
+    DETAILS: String
+    PRODUCT_LOCK: Boolean
 }
