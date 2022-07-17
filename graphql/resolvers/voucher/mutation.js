@@ -30,6 +30,9 @@ const Mutation = {
             ID: data.ID
         }
         data.UPDATE_AT = (new Date()).getTime()
+        if(data.STATE === false){
+            data.VOUCHER_CODE = (new Date()).getTime() + '-' + common.genID(null, 10)
+        }
         let sql = common.genUpdateQuery(TABLE_NAME.VOUCHER, data, condition)
         try {
             await common.query(sql)

@@ -21,7 +21,8 @@ const Query = {
         let sql = `
             select *
             from ${TABLE_NAME.CATEGORIES}
-            where STATE ${expandCondition};
+            where STATE ${expandCondition}
+            order by UPDATE_AT desc;
         `
         try {
             let [result] = await common.query(sql)

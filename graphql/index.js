@@ -17,11 +17,11 @@ const apolloServer = new ApolloServer({
   playground: process.env.ENVIRONMENT,
 
   //### logging plugin ###
-  // plugins: [
-  //   myPlugin
-  // ]
+  plugins: [
+    myPlugin
+  ],
 
-  // csrfPrevention: true,
+  csrfPrevention: true,
 
   //### auth context ###
   // context: async ({ req }) => {

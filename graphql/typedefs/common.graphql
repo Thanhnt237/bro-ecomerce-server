@@ -53,3 +53,9 @@ input FirebaseMessage {
 input IDOnly {
   ID: String
 }
+
+type File {
+  filename: String!
+  mimetype: String!
+  encoding: String!
+}

@@ -5,11 +5,12 @@ module.exports = `
 CREATE TABLE IF NOT EXISTS ${TABLE_NAME.CATEGORIES}(
     ID varchar(50) not null,
     CATEGORIES_NAME text charset utf8mb4,
-    SLUG text charset utf8mb4,
+    SLUG varchar(200),
     DESCRIPTION text charset utf8mb4,
     CREATE_AT bigint,
     UPDATE_AT bigint,
     STATE boolean default true,
+    UNIQUE (SLUG),
     primary key (ID)
 );
 
@@ -57,6 +58,7 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.VOUCHER}(
     UPDATE_AT bigint,
     VALID_UNTIL bigint,
     STATE boolean default true,
+    UNIQUE (VOUCHER_CODE),
     primary key (ID)
 );
 

@@ -8,6 +8,7 @@ function ConvertTime() {
     this.hienThiNgayGio - hienThiNgayGio;
     this.convertMiliToStringTime = convertMiliToStringTime;
     this.getCurrentHour = getCurrentHour;
+    this.fileRenamer = fileRenamer;
 }
 
 module.exports = new ConvertTime;
@@ -54,4 +55,8 @@ function convertMiliToStringTime(milli){
     seconds = seconds < 10 ? `0${seconds}` : seconds;
 
     return hours + ":" +minutes + ":" + seconds;
+}
+
+function fileRenamer(input){
+
 }

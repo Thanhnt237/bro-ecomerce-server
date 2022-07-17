@@ -1,7 +1,7 @@
 let express = require("express");
 let loggger = require("morgan");
 let bodyParser = require('body-parser')
-
+const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
 let logger = require("./utils/logger");
 
 const graphqlServer = require('./graphql');
@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true,parameterLimit: 50
 
 app.use('/', require('./REST/routes'));
 app.use(loggger("dev"));
-
+app.use(graphqlUploadExpress());
 const start = async () => {
   try {
     await graphqlServer.start()

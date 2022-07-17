@@ -6,8 +6,10 @@ const sellerResolvers = require('./Seller')
 const voucherResolvers = require('./voucher')
 const paypalResolvers = require('./paypal')
 const uploadResolvers = require('./upload')
+const GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 
 const resolvers = {
+  Upload: GraphQLUpload,
   Query: {
     ...databasesResolvers.queries,
     ...loginResolvers.queries,

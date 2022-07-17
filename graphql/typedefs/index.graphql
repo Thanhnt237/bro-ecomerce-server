@@ -36,4 +36,7 @@ type Mutation {
 
   sellerLogin(username: String!, password: String!): SELLER_LOGIN
   userLogin(username: String!, password: String!): USER_LOGIN
+
+  singleUpload(file: Upload!): File!
+  multipleUpload(file: [Upload]!): File!
 }

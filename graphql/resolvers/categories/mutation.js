@@ -26,11 +26,15 @@ const Mutation = {
         }
     },
     updateCategories: async (parent, args, ctx, info) => {
+        console.log(args)
         let data = JSON.parse(JSON.stringify(args.category))
         let condition = {
             ID: data.ID
         }
         data.UPDATE_AT = (new Date()).getTime()
+        if(data.STATE === false){
+            data.SLUG = (new Date()).getTime() + '-' + common.genID(null, 20)
+        }
         let sql = common.genUpdateQuery(TABLE_NAME.CATEGORIES, data, condition)
         try {
             await common.query(sql)
