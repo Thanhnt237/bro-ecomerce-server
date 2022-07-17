@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.PRODUCT} (
     DESCRIPTION text charset utf8mb4,
     PRICE bigint default 0,
     PRODUCT_DESCRIPTION text charset utf8mb4,
+    GALLERY text charset utf8mb4,
     CREATE_AT bigint,
     UPDATE_AT bigint,
     PRODUCT_LOCK boolean default false,
@@ -57,17 +58,20 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.VOUCHER}(
     CREATE_AT bigint,
     UPDATE_AT bigint,
     VALID_UNTIL bigint,
+    APPLY_ALL boolean default false,
+    SELLER_ID varchar(50),
     STATE boolean default true,
     UNIQUE (VOUCHER_CODE),
     primary key (ID)
 );
 
 CREATE TABLE IF NOT EXISTS ${TABLE_NAME.REF_VOUCHER_PRODUCT}(
-    ID varchar(50) not null,
+    ID varchar(100) not null,
     VOUCHER_ID varchar(50),
     PRODUCT_ID varchar(50),
     CREATE_AT bigint,
     STATE boolean default true,
+    UNIQUE (VOUCHER_ID, PRODUCT_ID),
     primary key (ID),
     CONSTRAINT FK_REF_TO_VOUCHER FOREIGN KEY (VOUCHER_ID) REFERENCES ${TABLE_NAME.VOUCHER} (ID),
     CONSTRAINT FK_REF_TO_PRODUCT FOREIGN KEY (PRODUCT_ID) REFERENCES ${TABLE_NAME.PRODUCT} (ID)
@@ -91,5 +95,17 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.USER} (
     primary key (ID)
 );
 
+CREATE TABLE IF NOT EXISTS ${TABLE_NAME.CART} (
+    ID varchar(50) not null,
+    USER_ID varchar(50) not null,
+    PRODUCT_ID varchar(50) not null,
+    COUNT_PRODUCT bigint default 0,
+    CREATE_AT bigint,
+    UPDATE_AT bigint,
+    UNIQUE (USER_ID, PRODUCT_ID),
+    CONSTRAINT FK_REF_TO_USER FOREIGN KEY (USER_ID) REFERENCES ${TABLE_NAME.USER} (ID),
+    CONSTRAINT FK_REF_TO_PRODUCT FOREIGN KEY (PRODUCT_ID) REFERENCES ${TABLE_NAME.PRODUCT} (ID),
+    primary key (ID)
+);
 
 `;

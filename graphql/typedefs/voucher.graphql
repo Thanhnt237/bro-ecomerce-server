@@ -2,6 +2,8 @@ input VoucherInsertInput {
     VOUCHER_NAME: String
     VOUCHER_CODE: String
     DISCOUNT_PRICE: String
+    APPLY_ALL: Boolean
+    SELLER_ID: String
     VALID_UNTIL: Float
 }
 
@@ -10,6 +12,8 @@ type Voucher implements Timestamps {
     VOUCHER_NAME: String
     VOUCHER_CODE: String
     DISCOUNT_PRICE: Float
+    APPLY_ALL: Boolean
+    SELLER_ID: String
     CREATE_AT: Float
     UPDATE_AT: Float
     VALID_UNTIL: Float
@@ -20,6 +24,7 @@ input VoucherUpdateInput {
     ID: String
     VOUCHER_NAME: String
     VOUCHER_CODE: String
+    APPLY_ALL: Boolean
     DISCOUNT_PRICE: String
     STATE: Boolean
 }

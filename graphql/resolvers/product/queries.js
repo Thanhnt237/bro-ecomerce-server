@@ -1,12 +1,14 @@
 const common = require("../../../common/commonFunction");
+const constants = require("../../../common/constants")
 const { TABLE_NAME } = require("../../../config/tablename");
 const _ = require("lodash")
 const {locatedError} = require("graphql");
 
 const Query = {
     getProducts: async (parent, args, ctx, info)=>{
-        let {ID, search_string, categoriesID} = args
+        let {ID, search_string, categoriesID, product_lock, orderBy} = args
         let expandCondition = ""
+        let orderByCondition = "ID asc"
 
         if(ID){
             expandCondition += ` and ID = '${ID}' `
@@ -17,13 +19,26 @@ const Query = {
         }
 
         if(categoriesID){
-            expandCondition += ` and  `
+            expandCondition += ` and CATEGORIES_ID = '${categoriesID}' `
+        }
+
+        if(product_lock){
+            expandCondition += ` and PRODUCT_LOCK = ${product_lock} `
+        }
+
+        let orderByLimitation = ["ID", "PRODUCT_NAME", "SELLER_ID", "CATEGORY_ID", "DETAILS",
+                                "DESCRIPTION", "PRICE", "PRODUCT_DESCRIPTION", "GALLERY",
+                                "CREATE_AT", "UPDATE_AT", "PRODUCT_LOCK"]
+
+        if(orderByLimitation.includes(orderBy.field) && constants.sortLimitation.includes(orderBy.type)){
+            orderByCondition = `${orderBy.field} ${orderBy.type}`
         }
 
         let sql = `
             select *
             from ${TABLE_NAME.PRODUCT}
-            where STATE ${expandCondition};
+            where STATE ${expandCondition}
+            order by ${orderByCondition};
         `
 
         try {
@@ -41,7 +56,8 @@ const Query = {
                     select vc.*, ref.PRODUCT_ID
                     from ${TABLE_NAME.VOUCHER} as vc
                     left join ${TABLE_NAME.REF_VOUCHER_PRODUCT} as ref on vc.ID = ref.VOUCHER_ID
-                    where ref.PRODUCT_ID in ('${result.map(c => c.ID).join("','")}');
+                    where (!vc.APPLY_ALL and ref.PRODUCT_ID in ('${result.map(c => c.ID).join("','")}'))
+                    OR vc.APPLY_ALL;
                 `
 
                 let [result2,] = await common.query(sql2)

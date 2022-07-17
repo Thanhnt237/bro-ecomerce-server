@@ -6,6 +6,7 @@ type Product implements Timestamps{
     DETAILS: String
     DESCRIPTION: String
     VOUCHER: [Voucher]
+    GALLERY: String
     PRICE: Float
     CREATE_AT: Float
     UPDATE_AT: Float
@@ -20,8 +21,8 @@ input ProductUpdateInput {
     CATEGORY_ID: String
     DETAILS: String
     DESCRIPTION: String
+    GALLERY: String
     PRICE: Float
-    PRODUCT_DESCRIPTION : String
     PRODUCT_LOCK: Boolean
     STATE: Boolean
 }
@@ -31,7 +32,15 @@ input ProductInsertInput {
     SELLER_ID: String
     PRICE: Float
     DESCRIPTION : String
+    GALLERY: String
     CATEGORY_ID: String
     DETAILS: String
     PRODUCT_LOCK: Boolean
+}
+
+type PRODUCT_RESPONSE {
+    status: String
+    message: String
+    error: String
+    PRODUCT_ID: String
 }

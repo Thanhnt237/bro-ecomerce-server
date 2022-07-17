@@ -43,11 +43,14 @@ const Mutation = {
         }
     },
     addVoucherRef: async (parent, args, ctx, info) => {
+        console.log(args)
         let {vouchers, products} = args
 
+        let columnReplace = ["VOUCHER_ID", "PRODUCT_ID"]
+
         let data = []
-        for (let voucher in vouchers){
-            for (let product in products){
+        for (let voucher of vouchers){
+            for (let product of products){
                 data.push({
                     ID: voucher + product,
                     VOUCHER_ID: voucher,
@@ -57,7 +60,7 @@ const Mutation = {
             }
         }
 
-        let sql = common.genInsertQuery(TABLE_NAME.REF_VOUCHER_PRODUCT, Object.keys(data[0]), data)
+        let sql = common.genInsertOnDuplicateQueryV2(TABLE_NAME.REF_VOUCHER_PRODUCT, Object.keys(data[0]), data, columnReplace)
         try {
             await common.query(sql)
             return {status: "OK", message: "OK"}

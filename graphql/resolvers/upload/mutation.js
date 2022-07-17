@@ -2,6 +2,9 @@ const common = require("../../../common/commonFunction");
 const { TABLE_NAME } = require("../../../config/tablename");
 const _ = require('lodash');
 const { finished } = require('stream/promises');
+const path = require('path')
+const fs = require('fs')
+const {fileRenamer} = require('../../../utils/util')
 
 const Mutation = {
     singleUpload: async (parent, { file }) => {
@@ -26,12 +29,13 @@ const Mutation = {
             const { createReadStream, filename, mimetype } = await file[i];
             const stream = createReadStream();
             const assetUniqName = fileRenamer(filename);
-            const pathName = path.join(__dirname,   `./upload/${assetUniqName}`);
+            const pathName = path.join(__dirname,   `../../../assets/upload/${assetUniqName}`);
             await stream.pipe(fs.createWriteStream(pathName));
-            const urlForArray = `http://localhost:4000/${assetUniqName}`;
-            url.push({ url: urlForArray });
+            const urlForArray = `/media/${assetUniqName}`;
+            url.push(urlForArray);
         }
-        return url;
+        console.log(url)
+        return {status:"OK", URL: url};
     },
 };
 

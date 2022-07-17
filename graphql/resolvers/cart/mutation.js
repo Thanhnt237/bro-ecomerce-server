@@ -3,36 +3,39 @@ const { TABLE_NAME } = require("../../../config/tablename");
 const _ = require('lodash');
 
 const Mutation = {
-    addNewProduct: async (parent, args)=>{
-        let data = JSON.parse(JSON.stringify(args.products))
+    addToCart: async (parent, args, ctx, info)=>{
+        let data = JSON.parse(JSON.stringify(args.categories))
 
         data = data.map(c => {
             return {
-                ID: common.genID("P",45),
+                ID: common.genID("C",45),
                 ...c,
                 CREATE_AT: (new Date()).getTime(),
                 UPDATE_AT: (new Date()).getTime()
             }
         })
 
-        let sql = common.genInsertQuery(TABLE_NAME.PRODUCT, Object.keys(data[0]), data)
+        let sql = common.genInsertQuery(TABLE_NAME.CART, Object.keys(data[0]), data)
 
         try {
             await common.query(sql)
-            return {status: "OK", message: "OK", PRODUCT_ID: data[0].ID}
+            return {status: "OK", message: "OK"}
         } catch (error) {
             console.log("error" + error);
             return {status: "KO", ...error}
         }
     },
-    updateProduct: async (parent, args, ctx, info) => {
+    removeFromCart: async (parent, args, ctx, info) => {
         console.log(args)
-        let data = JSON.parse(JSON.stringify(args.product))
+        let data = JSON.parse(JSON.stringify(args.category))
         let condition = {
             ID: data.ID
         }
         data.UPDATE_AT = (new Date()).getTime()
-        let sql = common.genUpdateQuery(TABLE_NAME.PRODUCT, data, condition)
+        if(data.STATE === false){
+            data.SLUG = (new Date()).getTime() + '-' + common.genID(null, 20)
+        }
+        let sql = common.genUpdateQuery(TABLE_NAME.CATEGORIES, data, condition)
         try {
             await common.query(sql)
             return {status: "OK", message: "OK"}

@@ -7,11 +7,13 @@ type Query {
 
   getSeller(ID: String, search_string: String): [Seller]
 
-  getProducts(ID: String, search_string: String, categoriesID: String, sellerID: String): [Product]
+  getProducts(ID: String, search_string: String, categoriesID: String, sellerID: String, product_lock: Boolean, orderBy: OrderByInput): [Product]
 
-  getVouchers(ID: String, search_string: String): [Voucher]
+  getVouchers(ID: String, search_string: String, apply_all: Boolean, sellerID: String): [Voucher]
 
   getUsers(ID: String, search_string: String): [User]
+
+  getCart(userID: String): [Cart]
 }
 
 type Mutation {
@@ -23,13 +25,13 @@ type Mutation {
   addNewSeller(sellers: [SellerInsertInput]!): TokenResponse
   updateSeller(seller: SellerUpdateInput!): RESPONSE
 
-  addNewProduct(products: [ProductInsertInput!]): RESPONSE
+  addNewProduct(products: [ProductInsertInput!]): PRODUCT_RESPONSE
   updateProduct(product: ProductUpdateInput!): RESPONSE
 
   addNewVouchers(vouchers: [VoucherInsertInput]!): RESPONSE
   updateVoucher(voucher: VoucherUpdateInput!): RESPONSE
 
-  addVoucherRef(vouchers: [IDOnly]!, products: [IDOnly]!): RESPONSE
+  addVoucherRef(vouchers: [String]!, products: [String]!): RESPONSE
 
   addNewUser(users: [UserInsertInput]!): RESPONSE
   updateUser(user: UserUpdateInput!): RESPONSE
@@ -37,6 +39,9 @@ type Mutation {
   sellerLogin(username: String!, password: String!): SELLER_LOGIN
   userLogin(username: String!, password: String!): USER_LOGIN
 
+  addToCart(productID: [CartItemInsertInput]!, userID: String!): RESPONSE
+  removeFromCart(productID: [CartItemInsertInput]!, userID: String!): RESPONSE
+
   singleUpload(file: Upload!): File!
-  multipleUpload(file: [Upload]!): File!
+  multipleUpload(file: [Upload]!): MultipleUploadResponse!
 }

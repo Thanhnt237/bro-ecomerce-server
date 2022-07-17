@@ -54,8 +54,19 @@ input IDOnly {
   ID: String
 }
 
+type MultipleUploadResponse {
+  status: String
+  message: String
+  URL: [String]
+}
+
 type File {
   filename: String!
   mimetype: String!
   encoding: String!
+}
+
+input OrderByInput {
+  field: String
+  type: String
 }

@@ -1,0 +1,11 @@
+type Cart {
+    ID: String
+    USER_ID: String
+    PRODUCT_ID: String
+    COUNT_PRODUCT: Float
+}
+
+input CartItemInsertInput {
+    PRODUCT_ID: String
+    COUNT_PRODUCT: String
+}

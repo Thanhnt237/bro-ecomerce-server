@@ -6,6 +6,8 @@ const sellerResolvers = require('./Seller')
 const voucherResolvers = require('./voucher')
 const paypalResolvers = require('./paypal')
 const uploadResolvers = require('./upload')
+const cartResolvers = require('./cart');
+
 const GraphQLUpload = require('graphql-upload/GraphQLUpload.js');
 
 const resolvers = {
@@ -19,6 +21,7 @@ const resolvers = {
     ...voucherResolvers.queries,
     ...paypalResolvers.queries,
     ...uploadResolvers.queries,
+    ...cartResolvers.queries,
   },
   Mutation: {
     ...databasesResolvers.mutation,
@@ -29,6 +32,7 @@ const resolvers = {
     ...voucherResolvers.mutation,
     ...paypalResolvers.mutation,
     ...uploadResolvers.mutation,
+    ...cartResolvers.mutation,
   }
 };
 

@@ -6,8 +6,8 @@ const _ = require('lodash');
 const {UserInputError} = require('apollo-server');
 
 const Query = {
-    getVouchers: async (parent, args, ctx, info)=>{
-        let {ID, search_string, apply_all, sellerID} = args
+    getCategories: async (parent, args, ctx, info)=>{
+        let {ID, search_string} = args
         let expandCondition = ""
 
         if(ID){
@@ -15,20 +15,12 @@ const Query = {
         }
 
         if(search_string){
-            expandCondition += ` and lower(VOUCHER_NAME) like '%${search_string.trim().toLowerCase()}%'`
-        }
-
-        if(apply_all){
-            expandCondition += ` and APPLY_ALL = ${apply_all} `
-        }
-
-        if(sellerID){
-            expandCondition += ` and SELLER_ID = '${sellerID}' `
+            expandCondition += ` and lower(CATEGORIES_NAME) like '%${search_string.trim().toLowerCase()}%'`
         }
 
         let sql = `
             select *
-            from ${TABLE_NAME.VOUCHER}
+            from ${TABLE_NAME.CATEGORIES}
             where STATE ${expandCondition}
             order by UPDATE_AT desc;
         `

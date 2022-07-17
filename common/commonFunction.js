@@ -256,7 +256,30 @@
 			return e.errors.map(x => _.pick(x, ['path', 'message']));
 		}
 		return [{ path: 'name', message: 'something went wrong' }];
-	}
+	},
+
+		/** gen sql insert, nếu tồn tại thì update
+		 *
+		 * @param {*} tableName
+		 * @param {*} arrProps : //các cột
+		 * @param {*} data : Arr
+		 * @param {*} columnReplace : cot thay the
+		 */
+		genInsertOnDuplicateQueryV2: function (tableName, arrProps, dataArr, columnReplace,replacement) {
+
+			let sql = "";
+			let insertString = this.genInsertQuery(tableName,arrProps,dataArr)
+			if (!replacement){
+				let replace = []
+				for (var column of columnReplace){
+					replace.push(`${column} = VALUES(${column})`)
+				}
+				replacement = replace.join()
+			}
+			// replacement += this.genInsertOnDuplicateQueryHelper(data, replacement, columnReplace)
+			sql = `${insertString.slice(0,insertString.length - 1)} ON DUPLICATE KEY UPDATE ${replacement};`;
+			return sql;
+		},
 };
 
 
