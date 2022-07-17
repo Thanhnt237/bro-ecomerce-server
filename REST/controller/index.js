@@ -4,11 +4,13 @@ const constants = require("../../common/constants")
 const { request, gql , GraphQLClient} = require('graphql-request');
 const multerUpload = require('../multer');
 const multer = require('multer')
+const paypal = require('../../config/paypal')
 
 module.exports = {
   initDatabase: initDatabase,
   convertGPL: convertGPL,
-  uploadFile: uploadFile
+  uploadFile: uploadFile,
+  createPaypalSDK: createPaypalSDK
 };
 
 async function initDatabase(req, res) {
@@ -69,4 +71,47 @@ async function uploadFile(req,res) {
       res.status(200).send({status: "OK", message: "OK"})
     }
   })
+}
+
+async function createPaypalSDK(req, res){
+  let card_data = {
+    "intent": "sale",
+    "payer": {
+      "payment_method": "credit_card",
+      "funding_instruments": [{
+        "credit_card": {
+          "type": "visa",
+          "number": "4032033177759185",
+          "expire_month": "08",
+          "expire_year": "2027",
+          "cvv2": "762",
+          "first_name": "Joe",
+          "last_name": "Shopper",
+          "billing_address": {
+            "line1": "52 N Main ST",
+            "city": "Johnstown",
+            "state": "OH",
+            "postal_code": "43210",
+            "country_code": "US"
+          }}}]},
+    "transactions": [{
+      "amount": {
+        "total": "0.00001",
+        "currency": "USD",
+        "details": {
+          "subtotal": "0.00000001",
+          "tax": "0",
+          "shipping": "0"}},
+      "description": "This is the payment transaction description."
+    }]};
+  console.log(paypal)
+  paypal.payment.create(card_data, function(error, payment){
+    if(error){
+      console.error(error);
+      res.status(400).json({status: "KO", ...error})
+    } else {
+      console.log(payment);
+      res.status(200).json({status: "OK", ...payment})
+    }
+  });
 }

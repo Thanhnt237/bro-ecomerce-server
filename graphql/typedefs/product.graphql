@@ -2,7 +2,7 @@ type Product implements Timestamps{
     ID: String
     PRODUCT_NAME: String
     SELLER: Seller
-    CATEGORIES: Categories
+    CATEGORY: Categories
     DETAILS: String
     DESCRIPTION: String
     VOUCHER: [Voucher]

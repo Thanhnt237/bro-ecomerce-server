@@ -28,7 +28,6 @@ const Query = {
 
         try {
             let [result] = await common.query(sql)
-            console.log(result)
             if(result && result.length){
                 let sql2 = `
                     select *
@@ -68,7 +67,6 @@ const Query = {
 
             }
 
-            console.log(result)
             return result
         }catch (error) {
             console.log("error" + error);
