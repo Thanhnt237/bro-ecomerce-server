@@ -1,5 +1,6 @@
 type User implements Timestamps{
     ID: String
+    EMAIL: String
     CREATE_AT: Float
     UPDATE_AT: Float
     STATE: Boolean
@@ -15,6 +16,8 @@ type User implements Timestamps{
 input UserInsertInput {
     FIRST_NAME: String
     LAST_NAME: String
+    EMAIL: String
+    PASSWORD: String
     DATE_OF_BIRTH: String
     GENDER: String
     NATIONALITY: String
@@ -24,6 +27,8 @@ input UserInsertInput {
 
 input UserUpdateInput{
     ID: String
+    EMAIL: String
+    PASSWORD: String
     FIRST_NAME: String
     LAST_NAME: String
     DATE_OF_BIRTH: String

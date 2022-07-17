@@ -4,19 +4,29 @@ const _ = require('lodash');
 
 const Mutation = {
     addToCart: async (parent, args, ctx, info)=>{
-        let data = JSON.parse(JSON.stringify(args.categories))
+        console.log(args)
+        let data = JSON.parse(JSON.stringify(args.productID))
 
         data = data.map(c => {
             return {
                 ID: common.genID("C",45),
                 ...c,
+                USER_ID: args.userID,
                 CREATE_AT: (new Date()).getTime(),
                 UPDATE_AT: (new Date()).getTime()
             }
         })
 
-        let sql = common.genInsertQuery(TABLE_NAME.CART, Object.keys(data[0]), data)
+        let sql = ""
 
+        for(let item of data){
+            sql += common.genInsertQuery(TABLE_NAME.CART, Object.keys(data[0]), [item])
+            sql = sql.split(";")[0]
+            sql += `on duplicate key update COUNT_PRODUCT = COUNT_PRODUCT + ${item.COUNT_PRODUCT} `
+        }
+
+        // let sql = common.genInsertQuery(TABLE_NAME.CART, Object.keys(data[0]), data)
+        console.log(sql)
         try {
             await common.query(sql)
             return {status: "OK", message: "OK"}
@@ -25,9 +35,9 @@ const Mutation = {
             return {status: "KO", ...error}
         }
     },
-    removeFromCart: async (parent, args, ctx, info) => {
+    removeItemFromCart: async (parent, args, ctx, info) => {
         console.log(args)
-        let data = JSON.parse(JSON.stringify(args.category))
+        let data = JSON.parse(JSON.stringify(args.productID))
         let condition = {
             ID: data.ID
         }

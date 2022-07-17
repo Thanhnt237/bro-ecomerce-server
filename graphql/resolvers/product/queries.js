@@ -30,7 +30,7 @@ const Query = {
                                 "DESCRIPTION", "PRICE", "PRODUCT_DESCRIPTION", "GALLERY",
                                 "CREATE_AT", "UPDATE_AT", "PRODUCT_LOCK"]
 
-        if(orderByLimitation.includes(orderBy.field) && constants.sortLimitation.includes(orderBy.type)){
+        if(orderBy && orderByLimitation.includes(orderBy.field) && constants.sortLimitation.includes(orderBy.type)){
             orderByCondition = `${orderBy.field} ${orderBy.type}`
         }
 

@@ -40,7 +40,7 @@ type Mutation {
   userLogin(username: String!, password: String!): USER_LOGIN
 
   addToCart(productID: [CartItemInsertInput]!, userID: String!): RESPONSE
-  removeFromCart(productID: [CartItemInsertInput]!, userID: String!): RESPONSE
+  removeItemFromCart(productID: [String]!, userID: String!): RESPONSE
 
   singleUpload(file: Upload!): File!
   multipleUpload(file: [Upload]!): MultipleUploadResponse!
