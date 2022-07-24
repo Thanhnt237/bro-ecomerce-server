@@ -6,29 +6,27 @@ const _ = require('lodash');
 const {UserInputError} = require('apollo-server');
 
 const Query = {
-    getSeller: async (parent, args, ctx, info)=>{
-        console.log(args)
-        let {ID, search_string} = args
+    getCommentOfProduct: async (parent, args, ctx, info)=>{
+        let {productID, search_string} = args
         let expandCondition = ""
 
-        if(ID){
-            expandCondition += ` and ID = '${ID}' `
-        }
-
         if(search_string){
-            // expandCondition += ` and lower(SELLER_NAME) like '%${search_string.trim().toLowerCase()}%'`
+            expandCondition += ` and lower(CATEGORIES_NAME) like '%${search_string.trim().toLowerCase()}%'`
         }
 
         let sql = `
-            select *
-            from ${TABLE_NAME.SELLER}
-            where STATE ${expandCondition};
+            select cmt.*, u.FIRST_NAME, u.LAST_NAME, u.ID as USER_ID
+            from ${TABLE_NAME.COMMENT} as cmt
+            left join ${TABLE_NAME.USER} as u on cmt.USER_ID = u.ID
+            where cmt.STATE and cmt.PRODUCT_ID = '${productID}'
+            ${expandCondition}
+            order by cmt.UPDATE_AT desc;
         `
         try {
             let [result] = await common.query(sql)
             return result
         }catch (error) {
-            console.log("error" + error);
+            console.log(error);
             return {status: "KO", ...error}
         }
     }

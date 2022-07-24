@@ -5,6 +5,7 @@ type Seller implements Timestamps{
     MAIN_CATEGORIES: String
     SELLER_NAME: String
     RATING: String
+    LOCATION: String
     FOLLOWER: Float
     CREATE_AT: Float
     UPDATE_AT: Float,
@@ -15,6 +16,7 @@ input SellerInsertInput {
     SELLER_NAME: String!
     EMAIL: String!
     PHONE_NUMBER: String!
+    LOCATION: String
     MAIN_CATEGORIES: String!
     PASSWORD: String
 }
@@ -23,6 +25,7 @@ input SellerUpdateInput {
     ID: String
     SELLER_NAME: String
     RATING: String
+    LOCATION: String
     FOLLOWER: Float
     CREATE_AT: Float
     UPDATE_AT: Float,

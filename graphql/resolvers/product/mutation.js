@@ -21,7 +21,7 @@ const Mutation = {
             await common.query(sql)
             return {status: "OK", message: "OK", PRODUCT_ID: data[0].ID}
         } catch (error) {
-            console.log("error" + error);
+            console.log(error);
             return {status: "KO", ...error}
         }
     },
@@ -37,7 +37,7 @@ const Mutation = {
             await common.query(sql)
             return {status: "OK", message: "OK"}
         } catch (error) {
-            console.log("error" + error);
+            console.log(error);
             return {status: "KO", ...error}
         }
     }

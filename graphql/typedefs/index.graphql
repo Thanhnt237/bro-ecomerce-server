@@ -14,6 +14,10 @@ type Query {
   getUsers(ID: String, search_string: String): [User]
 
   getCart(userID: String): [Cart]
+
+  getCommentOfProduct(productID: String!): [Comment]
+
+  getOrders(userID: String, ID: String): [Order]
 }
 
 type Mutation {
@@ -36,12 +40,17 @@ type Mutation {
   addNewUser(users: [UserInsertInput]!): RESPONSE
   updateUser(user: UserUpdateInput!): RESPONSE
 
+  addNewComment(comment: [CommentInsertInput]!): RESPONSE
+  removeComment(comment: CommentUpdateInput): RESPONSE
+
   sellerLogin(username: String!, password: String!): SELLER_LOGIN
   userLogin(username: String!, password: String!): USER_LOGIN
 
   addToCart(productID: [CartItemInsertInput]!, userID: String!): RESPONSE
-  removeItemFromCart(productID: [String]!, userID: String!): RESPONSE
+  removeItemFromCart(ID: [String]!): RESPONSE
 
   singleUpload(file: Upload!): File!
   multipleUpload(file: [Upload]!): MultipleUploadResponse!
+
+  addNewOrder(order: OrderInsertInput): RESPONSE
 }

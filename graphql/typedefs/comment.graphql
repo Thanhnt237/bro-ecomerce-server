@@ -1,0 +1,18 @@
+type Comment {
+    ID: String
+    USER_ID: String
+    FIRST_NAME: String
+    LAST_NAME: String
+    CONTENTS: String
+}
+
+input CommentInsertInput {
+    USER_ID: String
+    PRODUCT_ID: String
+    CONTENTS: String
+}
+
+input CommentUpdateInput {
+    ID: String!
+    STATE: Boolean
+}

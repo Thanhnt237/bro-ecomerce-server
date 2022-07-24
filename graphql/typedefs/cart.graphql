@@ -2,6 +2,10 @@ type Cart {
     ID: String
     USER_ID: String
     PRODUCT_ID: String
+    PRODUCT_NAME: String
+    PRICE: Float
+    GALLERY: String
+    DELIVERY_PRICE: Float
     COUNT_PRODUCT: Int
 }
 

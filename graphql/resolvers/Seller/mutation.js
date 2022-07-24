@@ -32,10 +32,12 @@ const Mutation = {
         }
     },
     updateSeller: async (parent, args, ctx, info) => {
+        console.log(args)
         let standardData = {
             SELLER_NAME: "",
             RATING: "",
             FOLLOWER: "",
+            LOCATION: "",
             STATE: ""
         }
         let data = _.pick(args.seller, Object.keys(standardData))

@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.SELLER}(
     EMAIL varchar(50) not null,
     PASSWORD varchar(220) not null,
     ROLE varchar(20) default 'SELLER',
+    LOCATION text,
     RATING text charset utf8mb4,
     FOLLOWER bigint,
     CREATE_AT bigint,
@@ -41,7 +42,10 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.PRODUCT} (
     DESCRIPTION text charset utf8mb4,
     PRICE bigint default 0,
     PRODUCT_DESCRIPTION text charset utf8mb4,
+    PRODUCT_OPTIONS text charset utf8mb4,
+    NUMBER_PRODUCT int default 0,
     GALLERY text charset utf8mb4,
+    DELIVERY_PRICE bigint default 25000,
     CREATE_AT bigint,
     UPDATE_AT bigint,
     PRODUCT_LOCK boolean default false,
@@ -102,9 +106,50 @@ CREATE TABLE IF NOT EXISTS ${TABLE_NAME.CART} (
     COUNT_PRODUCT bigint default 0,
     CREATE_AT bigint,
     UPDATE_AT bigint,
+    STATE boolean default true,
     UNIQUE (USER_ID, PRODUCT_ID),
     CONSTRAINT FK_REF_CART_TO_USER FOREIGN KEY (USER_ID) REFERENCES ${TABLE_NAME.USER} (ID),
     CONSTRAINT FK_REF_CART_TO_PRODUCT FOREIGN KEY (PRODUCT_ID) REFERENCES ${TABLE_NAME.PRODUCT} (ID),
+    primary key (ID)
+);
+
+CREATE TABLE IF NOT EXISTS ${TABLE_NAME.COMMENT} (
+    ID varchar(50) not null,
+    USER_ID varchar(50) not null,
+    PRODUCT_ID varchar(50) not null,
+    CONTENTS varchar(50) not null,
+    CREATE_AT bigint,
+    UPDATE_AT bigint,
+    STATE boolean default true,
+    primary key (ID)
+);
+
+CREATE TABLE IF NOT EXISTS ${TABLE_NAME.DELIVERY_INFORMATION} (
+    ID varchar(50) not null,
+    USER_ID varchar(50) not null,
+    NAME text charset utf8mb4,
+    PHONE_NUMBER varchar(50) not null,
+    ADDRESS text charset utf8mb4,
+    DELIVERY_METHOD text charset utf8mb4,
+    DELIVERY_STATE text charset utf8mb4,
+    TOTAL_PRICE bigint,
+    CREATE_AT bigint,
+    UPDATE_AT bigint,
+    STATE boolean default true,
+    CONSTRAINT FK_REF_ORDER_TO_USER FOREIGN KEY (USER_ID) REFERENCES ${TABLE_NAME.USER} (ID),
+    primary key (ID)
+);
+
+CREATE TABLE IF NOT EXISTS ${TABLE_NAME.ORDER_DETAILS} (
+    ID varchar(50) not null,
+    DELIVERY_INFORMATION_ID varchar(50) not null,
+    PRODUCT_ID varchar(50) not null,
+    QUANTITY int,
+    CREATE_AT bigint,
+    UPDATE_AT bigint,
+    STATE boolean default true,
+    CONSTRAINT FK_REF_ORDER_TO_INFORMATION FOREIGN KEY (DELIVERY_INFORMATION_ID) REFERENCES ${TABLE_NAME.DELIVERY_INFORMATION} (ID),
+    CONSTRAINT FK_REF_ORDER_TO_PRODUCT FOREIGN KEY (PRODUCT_ID) REFERENCES ${TABLE_NAME.PRODUCT} (ID),
     primary key (ID)
 );
 

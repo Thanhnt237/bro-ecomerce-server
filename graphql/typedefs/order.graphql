@@ -1,0 +1,33 @@
+type Order {
+    ID: String
+    USER_ID: String
+    NAME: String
+    PHONE_NUMBER: String
+    ADDRESS: String
+    DELIVERY_METHOD: String
+    DELIVERY_STATE: String
+    TOTAL_PRICE: Float
+    CREATE_AT: Float
+    UPDATE_AT: Float
+    PRODUCTS: [Product]
+}
+
+input OrderInsertInput {
+    ORDER_ID: String!
+    USER_ID: String!
+    NAME: String!
+    PHONE_NUMBER: String!
+    ADDRESS: String!
+    DELIVERY_METHOD: String!
+    TOTAL_PRICE: Float!
+    PRODUCTS: [OrderSubInput]!
+}
+
+input OrderSubInput{
+    PRODUCT_ID: String
+    QUANTITY: Float
+}
+
+input OrderUpdateInput {
+    ID: String
+}

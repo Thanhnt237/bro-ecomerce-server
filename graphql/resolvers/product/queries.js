@@ -6,7 +6,8 @@ const {locatedError} = require("graphql");
 
 const Query = {
     getProducts: async (parent, args, ctx, info)=>{
-        let {ID, search_string, categoriesID, product_lock, orderBy} = args
+        console.log(args)
+        let {ID, search_string, categoriesID, sellerID, product_lock, orderBy} = args
         let expandCondition = ""
         let orderByCondition = "ID asc"
 
@@ -19,7 +20,11 @@ const Query = {
         }
 
         if(categoriesID){
-            expandCondition += ` and CATEGORIES_ID = '${categoriesID}' `
+            expandCondition += ` and CATEGORY_ID = '${categoriesID}' `
+        }
+
+        if(sellerID){
+            expandCondition += ` and SELLER_ID = '${sellerID}' `
         }
 
         if(product_lock){
@@ -85,7 +90,7 @@ const Query = {
 
             return result
         }catch (error) {
-            console.log("error" + error);
+            console.log(error);
             return {status: "KO", ...error}
         }
     }
