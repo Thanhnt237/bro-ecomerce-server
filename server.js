@@ -1,6 +1,7 @@
 let express = require("express");
 let loggger = require("morgan");
 let bodyParser = require('body-parser')
+const cors = require('cors')
 const graphqlUploadExpress = require('graphql-upload/graphqlUploadExpress.js');
 let logger = require("./utils/logger");
 
@@ -11,6 +12,7 @@ let app = express();
 app.use(bodyParser.json({ limit: '50mb'}));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true,parameterLimit: 50000 }));
 
+app.use(cors())
 app.use('/', require('./REST/routes'));
 app.use('/media', express.static('assets/upload'));
 app.use(loggger("dev"));

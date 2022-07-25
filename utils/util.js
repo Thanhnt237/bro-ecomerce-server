@@ -9,6 +9,7 @@ function ConvertTime() {
     this.convertMiliToStringTime = convertMiliToStringTime;
     this.getCurrentHour = getCurrentHour;
     this.fileRenamer = fileRenamer;
+    this.calculateLocation = calculateLocation;
 }
 
 module.exports = new ConvertTime;
@@ -65,4 +66,8 @@ function fileRenamer(filename){
     return `${arrTemp[0]
         .slice(0, arrTemp[0].length - 1)
         .join("_")}${queHoraEs}.${arrTemp[0].pop()}`;
+}
+
+function calculateLocation(geoData){
+    return Math.sqrt(Math.pow(Number(geoData.lat), 2) + Math.pow(Number(geoData.lng),2))/(Math.sqrt(Math.pow(Number(180), 2) + Math.pow(Number(360),2)))
 }
