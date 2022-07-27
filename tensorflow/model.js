@@ -46,7 +46,7 @@ async function createModel(dimensionLength){
     let model = tf.sequential();
 
     let hiddenLayer = tf.layers.dense({
-        units: 16,
+        units: 32,
         activation: "sigmoid",
         inputDim: 1
     });

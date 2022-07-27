@@ -4,5 +4,5 @@ module.exports = {
 	TOKEN_EXPIRES_TIME: '90d',
 	REFRESH_TOKEN_EXPIRES_TIME: '360d',
 	sortLimitation: ["ASC", "asc", "DESC", "desc"],
-	trainCount: 1000,
+	trainCount: 100,
 }

@@ -1,7 +1,8 @@
 const data = require('./data')
 const model = require('./model')
 const constants = require('../common/constants')
-
+const {predict} = require("./index");
+const tf = require('@tensorflow/tfjs-node')
 //train model
 module.exports = {
     train: train
@@ -13,14 +14,7 @@ let options = {
     shuffle: true
 }
 
-async function train(){
-    let productDataStorage = []
-    try {
-        productDataStorage = await data.productData()
-    }catch(error){
-        console.log(error)
-    }
-
+async function train(productDataStorage){
     let IDsCategories = productDataStorage.map(c => c.ID)
     let dimensionLength = IDsCategories.length
 
@@ -31,6 +25,6 @@ async function train(){
     })
 
     let geoModel = await model.createModel(dimensionLength)
-
-    return await geoModel.fit(normalizeData.inputData,normalizeData.outputData, options);
+    await geoModel.fit(normalizeData.inputData,normalizeData.outputData, options);
+    return geoModel
 }
