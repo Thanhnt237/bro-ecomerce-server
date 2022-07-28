@@ -21,7 +21,7 @@ const Mutation = {
         try {
             await common.query(sql)
             let [token, refreshToken] = await createTokens(data[0])
-            return {status: "OK", message: "OK", token: token, refreshToken: refreshToken}
+            return {status: "OK", message: "OK", token: token, refreshToken: refreshToken, user: data[0]}
         } catch (error) {
             console.log("error" + error);
             return {status: "KO", ...error}

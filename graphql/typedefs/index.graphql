@@ -37,7 +37,7 @@ type Mutation {
 
   addVoucherRef(vouchers: [String]!, products: [String]!): RESPONSE
 
-  addNewUser(users: [UserInsertInput]!): RESPONSE
+  addNewUser(users: [UserInsertInput]!): USER_LOGIN
   updateUser(user: UserUpdateInput!): RESPONSE
 
   addNewComment(comment: [CommentInsertInput]!): RESPONSE

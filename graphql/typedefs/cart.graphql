@@ -3,6 +3,7 @@ type Cart {
     USER_ID: String
     PRODUCT_ID: String
     PRODUCT_NAME: String
+    PRODUCT_OPTIONS: String
     PRICE: Float
     GALLERY: String
     DELIVERY_PRICE: Float
@@ -11,5 +12,6 @@ type Cart {
 
 input CartItemInsertInput {
     PRODUCT_ID: String!
+    PRODUCT_OPTIONS: String
     COUNT_PRODUCT: Int!
 }

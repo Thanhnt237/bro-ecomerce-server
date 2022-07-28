@@ -266,7 +266,6 @@
 		 * @param {*} columnReplace : cot thay the
 		 */
 		genInsertOnDuplicateQueryV2: function (tableName, arrProps, dataArr, columnReplace,replacement) {
-
 			let sql = "";
 			let insertString = this.genInsertQuery(tableName,arrProps,dataArr)
 			if (!replacement){

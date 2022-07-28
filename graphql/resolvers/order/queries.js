@@ -33,7 +33,7 @@ const Query = {
             if(result.length){
                 let arrOrderID = result.map(c => c.ID)
                 let sql2 = `
-                    select o.ID, o.DELIVERY_INFORMATION_ID, o.QUANTITY, p.*
+                    select o.ID, o.DELIVERY_INFORMATION_ID, o.QUANTITY, p.*, o.PRODUCT_OPTIONS
                     from ${TABLE_NAME.ORDER_DETAILS} as o
                     left join ${TABLE_NAME.PRODUCT} as p on o.PRODUCT_ID = p.ID
                     where DELIVERY_INFORMATION_ID in ('${arrOrderID.join("','")}');

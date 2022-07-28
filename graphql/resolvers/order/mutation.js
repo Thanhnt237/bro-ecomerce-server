@@ -26,6 +26,7 @@ const Mutation = {
                 ID: common.genID("O", 50),
                 DELIVERY_INFORMATION_ID: data.ORDER_ID,
                 PRODUCT_ID: c.PRODUCT_ID,
+                PRODUCT_OPTIONS: c.PRODUCT_OPTIONS,
                 QUANTITY: c.QUANTITY,
                 CREATE_AT: (new Date()).getTime(),
                 UPDATE_AT: (new Date()).getTime()

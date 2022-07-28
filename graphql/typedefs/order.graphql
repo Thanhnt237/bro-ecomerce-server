@@ -17,7 +17,7 @@ input OrderInsertInput {
     USER_ID: String!
     NAME: String!
     PHONE_NUMBER: String!
-    ADDRESS: String!
+    ADDRESS: String
     DELIVERY_METHOD: String!
     TOTAL_PRICE: Float!
     PRODUCTS: [OrderSubInput]!
@@ -26,6 +26,7 @@ input OrderInsertInput {
 input OrderSubInput{
     PRODUCT_ID: String
     QUANTITY: Float
+    PRODUCT_OPTIONS: String
 }
 
 input OrderUpdateInput {
